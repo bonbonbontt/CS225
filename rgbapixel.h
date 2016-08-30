@@ -6,7 +6,7 @@ using std::uint8_t;
 //author: Yitong Song
 //Date: Fall 2016
 
-class RGBAPixel {
+class RGBAPixel{
 public:
 
 	uint8_t red;
@@ -15,8 +15,6 @@ public:
 	uint8_t alpha;
 	RGBAPixel ();
 	RGBAPixel (uint8_t red, uint8_t green, uint8_t blue);
-
-
 };
 
 

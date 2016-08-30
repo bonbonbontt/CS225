@@ -1,17 +1,24 @@
-EXENAME = q1
+EXENAME = lab_intro
+OBJS = main.o png.o rgbapixel.o
 
 CXX = clang++
-CXXFLAGS = -std=c++0x -g -O0 -Wall -Wextra
+CXXFLAGS = -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
+LD = clang++
+LDFLAGS = -std=c++1y -stdlib=libc++ -lpng -lc++abi -lpthread
 
 all : $(EXENAME)
 
-$(EXENAME): q1.cpp 
-	$(CXX) $(CXXFLAGS) q1.cpp -o $(EXENAME)
+$(EXENAME) : $(OBJS)
+	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
 
-.PHONY: clean
-clean:
-	rm -f $(EXENAME)
+main.o : main.cpp png.h rgbapixel.h
+	$(CXX) $(CXXFLAGS) main.cpp
 
-.PHONY: upload
-upload:
-	@python .pl_upload.py || echo "Can't upload; please upload your code using your browser."
+png.o : png.cpp png.h rgbapixel.h
+	$(CXX) $(CXXFLAGS) png.cpp
+
+rgbapixel.o : rgbapixel.cpp rgbapixel.h
+	$(CXX) $(CXXFLAGS) rgbapixel.cpp
+
+clean :
+	-rm -f *.o $(EXENAME)
